@@ -1,3 +1,5 @@
 <resources>
   <string name="app_name">Examen Clima Android</string>
+  <string name="title_splashscreen_activity">Examen Clima Android</string>
+  <string name="title_weather_activity">Clima</string>
 </resources>
