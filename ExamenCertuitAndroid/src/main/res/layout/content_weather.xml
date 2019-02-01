@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    android:fitsSystemWindows="true"
+    app:popupTheme="@style/AppTheme.PopupOverlay">
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <TextView
+        android:id="@+id/toolbar_title"
+        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_marginEnd="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:text="@string/title_weather_activity" />
+
+      <ImageButton
+        android:id="@+id/btn_refresh"
+        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginStart="?attr/actionBarSize"
+        android:src="@drawable/baseline_refresh_white_24" />
+    </FrameLayout>
+  </android.support.v7.widget.Toolbar>
+</android.support.design.widget.CoordinatorLayout>

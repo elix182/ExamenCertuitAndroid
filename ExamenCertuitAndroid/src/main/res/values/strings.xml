@@ -2,4 +2,6 @@
   <string name="app_name">Examen Clima Android</string>
   <string name="title_splashscreen_activity">Examen Clima Android</string>
   <string name="title_weather_activity">Clima</string>
+  <string name="title_menu_favorite_button">Favoritos</string>
+  <string name="title_menu_search_button">Buscar Ciudad</string>
 </resources>
