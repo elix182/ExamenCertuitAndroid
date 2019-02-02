@@ -11,4 +11,10 @@
   <string name="msg_max_temp">Temperatura Maxima</string>
   <string name="msg_current_weather">Clima actual</string>
   <string name="msg_forecast">Pronostico</string>
+  <string name="title_favorites_activity">Favoritos</string>
+  <string name="msg_city_name">Ciudad</string>
+  <string name="msg_country_code">País</string>
+  <string name="title_search_activity">Buscar</string>
+
+
 </resources>

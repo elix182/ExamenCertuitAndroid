@@ -41,6 +41,11 @@ public class OpenWeatherApiService {
     enqueueGETRequest(api,callback);
   }
 
+  public void getForecastCityZipcode(String city, Integer zipcode, FutureCallback<JsonObject> callback){
+    String api = "data/2.5/forecast?zip="+zipcode+"&q="+city+"&appid=6e581c3cffcdeed1ebb4a7d513531bb0";
+    enqueueGETRequest(api,callback);
+  }
+
   public void getForecastCoordinates(Double latitude, Double longitude, FutureCallback<JsonObject> callback){
     String api = "data/2.5/forecast?lat="+latitude+"&lon="+longitude+"&appid=6e581c3cffcdeed1ebb4a7d513531bb0";
     enqueueGETRequest(api,callback);
@@ -57,6 +62,11 @@ public class OpenWeatherApiService {
 
   public void getWeatherZipcode(Integer zipcode, String country, FutureCallback<JsonObject> callback){
     String api = "data/2.5/weather?zip="+zipcode+","+country+"&appid=6e581c3cffcdeed1ebb4a7d513531bb0";
+    enqueueGETRequest(api,callback);
+  }
+
+  public void getWeatherCityZipcode(String city, Integer zipcode, FutureCallback<JsonObject> callback){
+    String api = "data/2.5/weather?zip="+zipcode+"&q="+city+"&appid=6e581c3cffcdeed1ebb4a7d513531bb0";
     enqueueGETRequest(api,callback);
   }
 

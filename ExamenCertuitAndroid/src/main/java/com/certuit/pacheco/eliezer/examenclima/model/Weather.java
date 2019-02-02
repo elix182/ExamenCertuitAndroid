@@ -4,7 +4,9 @@ import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Weather {
@@ -30,9 +32,13 @@ public class Weather {
     temperature = (json.get("main").getAsJsonObject().get("temp").getAsDouble()) - 273.15; //kelvin to celsius
     minTemperature = (json.get("main").getAsJsonObject().get("temp_min").getAsDouble()) - 273.15; //kelvin to celsius
     maxTemperature = (json.get("main").getAsJsonObject().get("temp_max").getAsDouble()) - 273.15; //kelvin to celsius
-    date = new GregorianCalendar();
+//    if(json.has("dt_txt")){
+//      date = formatGregorianCalendarFromString(json.get("dt_txt").getAsString());
+//    }else{}
     //set time in UNIX time (seconds)
+    date = new GregorianCalendar();
     date.setTimeInMillis(json.get("dt").getAsLong()*1000L);
+
     conditionId = json.get("weather").getAsJsonArray().get(0).getAsJsonObject().get("id").getAsInt();
   }
 
@@ -82,6 +88,19 @@ public class Weather {
 
   public void setConditionId(int conditionId) {
     this.conditionId = conditionId;
+  }
+
+  private GregorianCalendar formatGregorianCalendarFromString(@NotNull String dateTimeString){
+    SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    try {
+      Date date = fmt.parse(dateTimeString);
+      GregorianCalendar gregorianCalendar = new GregorianCalendar();
+      gregorianCalendar.setTime(date);
+      return gregorianCalendar;
+    } catch (ParseException e) {
+      e.printStackTrace();
+      return null;
+    }
   }
 
   public String getDateString(){

@@ -1,6 +1,7 @@
 package com.certuit.pacheco.eliezer.examenclima;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -30,6 +31,8 @@ import java.util.Stack;
 public class WeatherActivity extends AppCompatActivity {
 
   private City currentCity;
+  private static final int FAVORITE_REQUEST = 0;
+  private static final int SEARCH_REQUEST = 1;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,11 @@ public class WeatherActivity extends AppCompatActivity {
     showProgressBar(false);
     currentCity = new City();
     refreshWeather(null);
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
   }
 
   @Override
@@ -78,12 +86,14 @@ public class WeatherActivity extends AppCompatActivity {
       public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch(menuItem.getItemId()){
           case R.id.favorite_menu_button:
-            showToast("Favoritos");
             drawerLayout.closeDrawer(Gravity.START);
+            Intent intent = new Intent(WeatherActivity.this, FavoritesActivity.class);
+            startActivityForResult(intent,FAVORITE_REQUEST);
             break;
           case R.id.search_menu_button:
-            showToast("Buscar");
             drawerLayout.closeDrawer(Gravity.START);
+            Intent intent1 = new Intent(WeatherActivity.this, SearchActivity.class);
+            startActivityForResult(intent1,SEARCH_REQUEST);
             break;
           default: break;
         }
@@ -92,6 +102,22 @@ public class WeatherActivity extends AppCompatActivity {
     });
   }
 
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == FAVORITE_REQUEST) {
+      if (resultCode == RESULT_OK) {
+        currentCity.setName(data.getExtras().getString("cityName"));
+        currentCity.setCountryCode(data.getExtras().getString("countryCode"));
+        refreshWeather(null);
+      }
+    }
+    else if(requestCode == SEARCH_REQUEST){
+      if (resultCode == RESULT_OK) {
+        currentCity = new City();
+        refreshWeather(null);
+      }
+    }
+  }
 
   public void refreshWeather(View v){
     showProgressBar(true);
