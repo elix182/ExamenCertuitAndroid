@@ -4,4 +4,11 @@
   <string name="title_weather_activity">Clima</string>
   <string name="title_menu_favorite_button">Favoritos</string>
   <string name="title_menu_search_button">Buscar Ciudad</string>
+  <string name="msg_error_fetching_weather">Error obteniendo el clima actual</string>
+  <string name="msg_error_fetching_forecast">Error obteniendo pronostico de clima a 5 días</string>
+  <string name="msg_temp">Temperatura</string>
+  <string name="msg_min_temp">Temperatura Minima</string>
+  <string name="msg_max_temp">Temperatura Maxima</string>
+  <string name="msg_current_weather">Clima actual</string>
+  <string name="msg_forecast">Pronostico</string>
 </resources>
