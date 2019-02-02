@@ -2,6 +2,7 @@ package com.certuit.pacheco.eliezer.examenclima;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -40,13 +41,13 @@ public class WeatherActivity extends AppCompatActivity {
     setContentView(R.layout.activity_weather);
     setupToolbar();
     showProgressBar(false);
-    currentCity = new City();
+    if(savedInstanceState != null){
+      currentCity = new City(savedInstanceState.getString("cityName"), savedInstanceState.getString("countryCode"));
+    }else{
+      currentCity = loadCurrentCity();
+    }
+    System.out.println(currentCity);
     refreshWeather(null);
-  }
-
-  @Override
-  public void onPause() {
-    super.onPause();
   }
 
   @Override
@@ -57,6 +58,13 @@ public class WeatherActivity extends AppCompatActivity {
     } else {
       super.onBackPressed();
     }
+  }
+
+  @Override
+  protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putString("cityName", currentCity.getName());
+    outState.putString("countryCode", currentCity.getCountryCode());
   }
 
   @Override
@@ -108,12 +116,15 @@ public class WeatherActivity extends AppCompatActivity {
       if (resultCode == RESULT_OK) {
         currentCity.setName(data.getExtras().getString("cityName"));
         currentCity.setCountryCode(data.getExtras().getString("countryCode"));
+        saveCurrentCity(currentCity.getName(), currentCity.getCountryCode());
         refreshWeather(null);
       }
     }
     else if(requestCode == SEARCH_REQUEST){
       if (resultCode == RESULT_OK) {
-        currentCity = new City();
+        currentCity.setName(data.getExtras().getString("cityName"));
+        currentCity.setCountryCode(data.getExtras().getString("countryCode"));
+        saveCurrentCity(currentCity.getName(), currentCity.getCountryCode());
         refreshWeather(null);
       }
     }
@@ -190,6 +201,23 @@ public class WeatherActivity extends AppCompatActivity {
                 });
           }
         });
+  }
+
+  public void saveCurrentCity(String cityName, String countryCode){
+    SharedPreferences sp = getPreferences(MODE_PRIVATE);
+    SharedPreferences.Editor editor = sp.edit();
+    editor.putString("cityName", cityName);
+    editor.putString("countryCode", countryCode);
+    editor.commit();
+  }
+
+  public City loadCurrentCity(){
+    SharedPreferences sp = getPreferences(MODE_PRIVATE);
+    boolean shouldSave = (!sp.contains("cityName") || !sp.contains("countryCode"));
+    String cityName = sp.getString("cityName", "Mexicali");
+    String countryCode = sp.getString("countryCode", "MX");
+    if(shouldSave) saveCurrentCity(cityName, countryCode);
+    return new City(cityName, countryCode);
   }
 
   public void showProgressBar(final boolean visible){

@@ -104,7 +104,7 @@ public class FavoritesActivity extends AppCompatActivity {
               holder.countryCodeLabel.getText().toString());
           Intent intent = new Intent();
           intent.putExtra("cityName",city.getName());
-          intent.putExtra("countryName", city.getCountryCode());
+          intent.putExtra("countryCode", city.getCountryCode());
           setResult(RESULT_OK, intent);
           finish();
         }
