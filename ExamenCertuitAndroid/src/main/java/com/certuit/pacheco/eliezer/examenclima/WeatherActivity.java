@@ -46,7 +46,6 @@ public class WeatherActivity extends AppCompatActivity {
     }else{
       currentCity = loadCurrentCity();
     }
-    System.out.println(currentCity);
     refreshWeather(null);
   }
 
