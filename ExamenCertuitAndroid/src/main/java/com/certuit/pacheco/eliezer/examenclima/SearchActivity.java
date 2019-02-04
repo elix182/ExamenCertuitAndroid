@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -108,15 +109,6 @@ public class SearchActivity extends AppCompatActivity {
     } else {
       Intent intent = new Intent(SearchActivity.this, LocationActivity.class);
       startActivityForResult(intent, LOCATION_REQUEST);
-//      PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-//      try {
-//        startActivityForResult(builder.build(this), LOCATION_REQUEST);
-//      } catch (GooglePlayServicesRepairableException e) {
-//        showToast(e.getLocalizedMessage());
-//        e.printStackTrace();
-//      } catch (GooglePlayServicesNotAvailableException e) {
-//        showToast(e.getLocalizedMessage());
-//      }
     }
   }
 
