@@ -14,7 +14,16 @@
   <string name="title_favorites_activity">Favoritos</string>
   <string name="msg_city_name">Ciudad</string>
   <string name="msg_country_code">País</string>
-  <string name="title_search_activity">Buscar</string>
+  <string name="title_search_activity">Buscar Ciudad</string>
+  <string name="title_search_city">Buscar por nombre de ciudad</string>
+  <string name="title_search_zipcode">Buscar por código postal</string>
+  <string name="hint_search_name_city">Nombre Ciudad</string>
+  <string name="hint_search_zipcode">Código Postal</string>
+  <string name="title_button_search">Buscar</string>
+  <string name="msg_empty_city_name">El nombre de la ciudad esta vacío</string>
+  <string name="msg_empty_country_code">No se especificó un país</string>
+  <string name="msg_empty_zipcode">Codigo Postal se encuentra vacío</string>
+  <string name="msg_city_not_found">Ciudad no encontrada</string>
 
 
 </resources>

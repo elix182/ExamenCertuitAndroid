@@ -34,13 +34,8 @@ public class FavoritesActivity extends AppCompatActivity {
         new City("Tokyo","JP")
     };
 
-    RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.list_favorites);
-
-    // use this setting to improve performance if you know that changes
-    // in content do not change the layout size of the RecyclerView
+    RecyclerView mRecyclerView = findViewById(R.id.list_favorites);
     mRecyclerView.setHasFixedSize(true);
-
-    // use a linear layout manager
     LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
     mRecyclerView.setLayoutManager(mLayoutManager);
     FavoriteAdapter mAdapter = new FavoriteAdapter(cities);
@@ -88,7 +83,7 @@ public class FavoritesActivity extends AppCompatActivity {
       }
     }
 
-    public FavoriteAdapter(City[] dataset){
+    FavoriteAdapter(City[] dataset){
       this.dataset = dataset;
     }
 

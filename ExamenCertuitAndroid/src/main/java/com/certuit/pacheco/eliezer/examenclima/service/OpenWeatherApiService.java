@@ -39,7 +39,7 @@ public class OpenWeatherApiService {
     enqueueGETRequest(api, callback);
   }
 
-  public void getForecastZipcode(Integer zipcode, String country, FutureCallback<JsonObject> callback){
+  public void getForecastZipcode(String zipcode, String country, FutureCallback<JsonObject> callback){
     String api = "data/2.5/forecast?zip="+zipcode+","+country+"&appid="+API_KEY;
     enqueueGETRequest(api,callback);
   }
@@ -63,7 +63,7 @@ public class OpenWeatherApiService {
     enqueueGETRequest(api, callback);
   }
 
-  public void getWeatherZipcode(Integer zipcode, String country, FutureCallback<JsonObject> callback){
+  public void getWeatherZipcode(String zipcode, String country, FutureCallback<JsonObject> callback){
     String api = "data/2.5/weather?zip="+zipcode+","+country+"&appid="+API_KEY;
     enqueueGETRequest(api,callback);
   }
