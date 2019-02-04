@@ -27,7 +27,7 @@ tools:context=".SearchActivity">
       android:layout_marginEnd="?attr/actionBarSize"
       android:gravity="center_vertical"
       android:orientation="horizontal"
-      android:text="@string/title_search_activity" />
+      android:text="@string/title_activity_search" />
 
     <ImageButton
       android:id="@+id/btn_search"

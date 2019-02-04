@@ -283,7 +283,7 @@ public class WeatherActivity extends AppCompatActivity {
         fragment2.setWeather(forecast[1]);
         fragment3.setWeather(forecast[2]);
         fragment4.setWeather(forecast[3]);
-        fragment5.setWeather(forecast[4]);
+        if(forecast[4] != null) fragment5.setWeather(forecast[4]);
       }
     });
   }

@@ -1,7 +1,11 @@
 package com.certuit.pacheco.eliezer.examenclima;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,12 +18,15 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.certuit.pacheco.eliezer.examenclima.model.City;
 import com.certuit.pacheco.eliezer.examenclima.service.OpenWeatherApiService;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 
+import org.jetbrains.annotations.NotNull;
+
 public class SearchActivity extends AppCompatActivity {
+
+  private final int LOCATION_REQUEST = 0;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,50 @@ public class SearchActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == LOCATION_REQUEST) {
+      if (resultCode == RESULT_OK) {
+        showProgressBar(true);
+        enableSearchByNameButton(false);
+        enableSearchByZipcodeButton(false);
+        enableSearchByMapButton(false);
+        double latitude = data.getExtras().getDouble("latitude");
+        double longitude = data.getExtras().getDouble("longitude");
+        OpenWeatherApiService.getInstance(getApplicationContext()).getWeatherCoordinates(latitude, longitude, new FutureCallback<JsonObject>() {
+          @Override
+          public void onCompleted(Exception e, JsonObject result) {
+            showProgressBar(false);
+            enableSearchByNameButton(true);
+            enableSearchByZipcodeButton(true);
+            enableSearchByMapButton(true);
+            if (result != null && result.get("cod").getAsInt() == 200) {
+              Intent intent = new Intent();
+              intent.putExtra("cityName", result.get("name").getAsString());
+              intent.putExtra("countryCode", result.get("sys").getAsJsonObject().get("country").getAsString());
+              setResult(RESULT_OK, intent);
+              finish();
+            } else {
+              showToast(getString(R.string.msg_city_not_found));
+            }
+          }
+        });
+      }
+    }
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, @NotNull String permissions[], @NotNull int[] grantResults) {
+    switch (requestCode) {
+      case LOCATION_REQUEST: {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+          searchMapAction(null);
+        }
+        break;
+      }
+    }
+  }
+
   private void setupToolbar(){
     Toolbar toolbar = findViewById(R.id.toolbar);
     toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_white_24);
@@ -51,8 +102,22 @@ public class SearchActivity extends AppCompatActivity {
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
   }
 
-  public void searchMapAction(View v){
-    showToast("WIP");
+  public void searchMapAction(View v) {
+    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+      ActivityCompat.requestPermissions(this, new String[]{ Manifest.permission.ACCESS_FINE_LOCATION }, LOCATION_REQUEST);
+    } else {
+      Intent intent = new Intent(SearchActivity.this, LocationActivity.class);
+      startActivityForResult(intent, LOCATION_REQUEST);
+//      PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+//      try {
+//        startActivityForResult(builder.build(this), LOCATION_REQUEST);
+//      } catch (GooglePlayServicesRepairableException e) {
+//        showToast(e.getLocalizedMessage());
+//        e.printStackTrace();
+//      } catch (GooglePlayServicesNotAvailableException e) {
+//        showToast(e.getLocalizedMessage());
+//      }
+    }
   }
 
   public void searchCityByName(View v){

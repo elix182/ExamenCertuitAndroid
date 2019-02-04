@@ -1,7 +1,7 @@
 <resources>
   <string name="app_name">Examen Clima Android</string>
-  <string name="title_splashscreen_activity">Examen Clima Android</string>
-  <string name="title_weather_activity">Clima</string>
+  <string name="title_activity_splashscreen">Examen Clima Android</string>
+  <string name="title_activity_weather">Clima</string>
   <string name="title_menu_favorite_button">Favoritos</string>
   <string name="title_menu_search_button">Buscar Ciudad</string>
   <string name="msg_error_fetching_weather">Error obteniendo el clima actual</string>
@@ -11,10 +11,10 @@
   <string name="msg_max_temp">Temperatura Maxima</string>
   <string name="msg_current_weather">Clima actual</string>
   <string name="msg_forecast">Pronostico</string>
-  <string name="title_favorites_activity">Favoritos</string>
+  <string name="title_activity_favorites">Favoritos</string>
   <string name="msg_city_name">Ciudad</string>
   <string name="msg_country_code">País</string>
-  <string name="title_search_activity">Buscar Ciudad</string>
+  <string name="title_activity_search">Buscar Ciudad</string>
   <string name="title_search_city">Buscar por nombre de ciudad</string>
   <string name="title_search_zipcode">Buscar por código postal</string>
   <string name="hint_search_name_city">Nombre Ciudad</string>
@@ -24,6 +24,6 @@
   <string name="msg_empty_country_code">No se especificó un país</string>
   <string name="msg_empty_zipcode">Codigo Postal se encuentra vacío</string>
   <string name="msg_city_not_found">Ciudad no encontrada</string>
-
-
+  <string name="title_activity_location">Selecciona Locación</string>
+  <string name="msg_cant_get_location">No se pudo obtener la locación áctual</string>
 </resources>
