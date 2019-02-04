@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.certuit.pacheco.eliezer.examenclima.model.Weather;
@@ -24,6 +25,7 @@ public class ForecastFragment extends Fragment {
   private TextView tempMinLabel;
   private TextView tempMaxLabel;
   private TextView dateLabel;
+  private ImageView weatherImage;
 
   public ForecastFragment(){}
 
@@ -40,6 +42,7 @@ public class ForecastFragment extends Fragment {
     tempMinLabel = v.findViewById(R.id.label_temp_min);
     tempMaxLabel = v.findViewById(R.id.label_temp_max);
     dateLabel = v.findViewById(R.id.label_date);
+    weatherImage = v.findViewById(R.id.weather_image);
     return v;
   }
 
@@ -62,5 +65,38 @@ public class ForecastFragment extends Fragment {
         .concat(" : ")
         .concat(String.format("%.2f", weather.getMinTemperature()))
         .concat(" °C"));
+    weatherImage.setImageDrawable(getContext().getDrawable(getCorrectIconWeather(weather)));
+  }
+
+  private int getCorrectIconWeather(Weather weather){
+    if(weather == null) return R.drawable.w01n;
+    if(weather.getConditionId() >= 200 && weather.getConditionId() <= 299){
+      return weather.getConditionType().contains("d")? R.drawable.w11d : R.drawable.w11n;
+    }
+    if(weather.getConditionId() >= 300 && weather.getConditionId() <= 399){
+      return weather.getConditionType().contains("d")? R.drawable.w09d : R.drawable.w09n;
+    }
+    if(weather.getConditionId() >= 500 && weather.getConditionId() <= 599){
+      return weather.getConditionType().contains("d")? R.drawable.w10d : R.drawable.w10n;
+    }
+    if(weather.getConditionId() >= 600 && weather.getConditionId() <= 699){
+      return weather.getConditionType().contains("d")? R.drawable.w13d : R.drawable.w13n;
+    }
+    if(weather.getConditionId() >= 700 && weather.getConditionId() <= 799){
+      return weather.getConditionType().contains("d")? R.drawable.w50d : R.drawable.w50n;
+    }
+    if(weather.getConditionId() == 800){
+      return weather.getConditionType().contains("d")? R.drawable.w01d : R.drawable.w01n;
+    }
+    if(weather.getConditionId() == 801){
+      return weather.getConditionType().contains("d")? R.drawable.w02d : R.drawable.w02n;
+    }
+    if(weather.getConditionId() == 802){
+      return weather.getConditionType().contains("d")? R.drawable.w03d : R.drawable.w03n;
+    }
+    if(weather.getConditionId() == 803 || weather.getConditionId() == 804){
+      return weather.getConditionType().contains("d")? R.drawable.w04d : R.drawable.w04n;
+    }
+    return R.drawable.w01d;
   }
 }

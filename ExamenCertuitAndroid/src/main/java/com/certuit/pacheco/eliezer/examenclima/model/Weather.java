@@ -16,6 +16,7 @@ public class Weather {
   private City city;
   private GregorianCalendar date;
   private int conditionId;
+  private String conditionType;
 
   public Weather(){}
 
@@ -40,6 +41,7 @@ public class Weather {
     date.setTimeInMillis(json.get("dt").getAsLong()*1000L);
 
     conditionId = json.get("weather").getAsJsonArray().get(0).getAsJsonObject().get("id").getAsInt();
+    conditionType = json.get("weather").getAsJsonArray().get(0).getAsJsonObject().get("icon").getAsString();
   }
 
   public double getTemperature() {
@@ -88,6 +90,14 @@ public class Weather {
 
   public void setConditionId(int conditionId) {
     this.conditionId = conditionId;
+  }
+
+  public String getConditionType() {
+    return conditionType;
+  }
+
+  public void setConditionType(String conditionType) {
+    this.conditionType = conditionType;
   }
 
   private GregorianCalendar formatGregorianCalendarFromString(@NotNull String dateTimeString){

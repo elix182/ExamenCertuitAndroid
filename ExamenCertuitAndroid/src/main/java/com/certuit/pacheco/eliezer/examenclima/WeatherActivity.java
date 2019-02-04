@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -185,6 +186,7 @@ public class WeatherActivity extends AppCompatActivity {
                         forecast[j].setDate(w.getDate());
                         forecast[j].setCity(w.getCity());
                         forecast[j].setConditionId(w.getConditionId());
+                        forecast[j].setConditionType(w.getConditionType());
                         forecast[j].setTemperature(temp);
                         forecast[j].setMaxTemperature(max);
                         forecast[j].setMinTemperature(min);
@@ -249,6 +251,7 @@ public class WeatherActivity extends AppCompatActivity {
         TextView tempMinLabel = findViewById(R.id.label_temp_min);
         TextView tempMaxLabel = findViewById(R.id.label_temp_max);
         TextView dateLabel = findViewById(R.id.label_date);
+        ImageView weatherImage = findViewById(R.id.weather_image);
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         fmt.setCalendar(weather.getDate());
@@ -269,6 +272,8 @@ public class WeatherActivity extends AppCompatActivity {
             .concat(" : ")
             .concat(String.format("%.2f",weather.getMinTemperature()))
             .concat(" °C"));
+
+        weatherImage.setImageDrawable(getDrawable(getCorrectIconWeather(weather)));
 
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -294,5 +299,37 @@ public class WeatherActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
       }
     });
+  }
+
+  private int getCorrectIconWeather(Weather weather){
+    if(weather == null) return R.drawable.w01n;
+    if(weather.getConditionId() >= 200 && weather.getConditionId() <= 299){
+      return weather.getConditionType().contains("d")? R.drawable.w11d : R.drawable.w11n;
+    }
+    if(weather.getConditionId() >= 300 && weather.getConditionId() <= 399){
+      return weather.getConditionType().contains("d")? R.drawable.w09d : R.drawable.w09n;
+    }
+    if(weather.getConditionId() >= 500 && weather.getConditionId() <= 599){
+      return weather.getConditionType().contains("d")? R.drawable.w10d : R.drawable.w10n;
+    }
+    if(weather.getConditionId() >= 600 && weather.getConditionId() <= 699){
+      return weather.getConditionType().contains("d")? R.drawable.w13d : R.drawable.w13n;
+    }
+    if(weather.getConditionId() >= 700 && weather.getConditionId() <= 799){
+      return weather.getConditionType().contains("d")? R.drawable.w50d : R.drawable.w50n;
+    }
+    if(weather.getConditionId() == 800){
+      return weather.getConditionType().contains("d")? R.drawable.w01d : R.drawable.w01n;
+    }
+    if(weather.getConditionId() == 801){
+      return weather.getConditionType().contains("d")? R.drawable.w02d : R.drawable.w02n;
+    }
+    if(weather.getConditionId() == 802){
+      return weather.getConditionType().contains("d")? R.drawable.w03d : R.drawable.w03n;
+    }
+    if(weather.getConditionId() == 803 || weather.getConditionId() == 804){
+      return weather.getConditionType().contains("d")? R.drawable.w04d : R.drawable.w04n;
+    }
+    return R.drawable.w01d;
   }
 }

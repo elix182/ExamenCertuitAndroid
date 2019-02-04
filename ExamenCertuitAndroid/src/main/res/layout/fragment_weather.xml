@@ -2,7 +2,8 @@
 <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
   android:layout_height="wrap_content"
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
   <TextView
     android:id="@+id/label_date"
@@ -56,5 +57,14 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/label_temp_max" />
+
+  <ImageView
+    android:id="@+id/weather_image"
+    android:layout_width="64dp"
+    android:layout_height="64dp"
+    android:layout_marginEnd="16dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
